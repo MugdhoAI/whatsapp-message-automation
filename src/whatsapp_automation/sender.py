@@ -39,8 +39,8 @@ class WhatsAppSender:
             wait_until="domcontentloaded",
         )
 
-        composer = page.locator('div[contenteditable="true"]').last
+        # Restrict the composer to the active chat footer, not the chat search field.
+        composer = page.locator('footer div[contenteditable="true"]').last
         composer.wait_for(state="visible", timeout=60_000)
         composer.fill(message.text)
         composer.press("Enter")
-        page.wait_for_timeout(500)
