@@ -1,5 +1,7 @@
 import argparse
 import logging
+import math
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -52,6 +54,9 @@ def main() -> int:
         format="%(asctime)s %(levelname)s %(message)s",
     )
 
+    if not math.isfinite(args.delay) or args.delay < 0:
+        parser.error("--delay must be a finite, non negative number.")
+
     try:
         messages = load_messages(args.file)
     except ValueError as exc:
@@ -63,15 +68,19 @@ def main() -> int:
         print("Dry run only. No message was sent.")
         return 0
 
-    if args.delay < 0:
-        parser.error("--delay cannot be negative.")
-
     if args.at is not None:
         print(f"Waiting until {args.at.isoformat()}...")
-        wait_until(args.at)
+        try:
+            wait_until(args.at)
+        except ValueError as exc:
+            parser.error(str(exc))
 
     if not args.yes:
-        answer = input("Send these messages through WhatsApp Web? [y/N] ")
+        try:
+            answer = input("Send these messages through WhatsApp Web? [y/N] ")
+        except (EOFError, KeyboardInterrupt):
+            print("\nSend cancelled.", file=sys.stderr)
+            return 130
         if answer.strip().lower() != "y":
             print("Send cancelled.")
             return 0
@@ -80,10 +89,26 @@ def main() -> int:
 
     try:
         WhatsAppSender(args.profile).send_batch(messages, delay=args.delay)
-    except Exception:
+    except KeyboardInterrupt:
+        logging.warning("Message batch interrupted by user")
+        print(
+            "Message batch interrupted. Check WhatsApp before retrying; "
+            "a send may have completed.",
+            file=sys.stderr,
+        )
+        return 130
+    except Exception as exc:
         logging.exception("Message batch failed")
-        raise
+        print(
+            f"Message batch failed: {exc}. Check WhatsApp before retrying because "
+            "send status may be uncertain.",
+            file=sys.stderr,
+        )
+        return 1
 
-    logging.info("Message batch completed")
-    print("Message batch completed.")
+    logging.info("Message batch automation completed; delivery was not independently verified")
+    print(
+        "Message batch automation completed. This confirms the browser steps finished, "
+        "not that recipients received or read every message."
+    )
     return 0

@@ -5,6 +5,7 @@ from pathlib import Path
 from .models import Message
 
 PHONE_PATTERN = re.compile(r"^\+[1-9]\d{7,14}$")
+ALLOWED_FIELDS = {"phone", "message"}
 
 
 def load_messages(path: Path) -> list[Message]:
@@ -14,6 +15,10 @@ def load_messages(path: Path) -> list[Message]:
         raise ValueError(f"Message file not found: {path}") from exc
     except json.JSONDecodeError as exc:
         raise ValueError(f"Invalid JSON in {path}: {exc.msg}") from exc
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"Message file is not valid UTF-8: {path}") from exc
+    except OSError as exc:
+        raise ValueError(f"Cannot read message file {path}: {exc.strerror}") from exc
 
     if not isinstance(raw, list):
         raise ValueError("Message file must contain a JSON array.")
@@ -23,6 +28,11 @@ def load_messages(path: Path) -> list[Message]:
     for index, item in enumerate(raw, start=1):
         if not isinstance(item, dict):
             raise ValueError(f"Entry {index} must be a JSON object.")
+
+        unknown_fields = item.keys() - ALLOWED_FIELDS
+        if unknown_fields:
+            names = ", ".join(sorted(unknown_fields))
+            raise ValueError(f"Entry {index} contains unsupported field(s): {names}.")
 
         phone = item.get("phone")
         text = item.get("message")

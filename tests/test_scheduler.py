@@ -1,5 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from unittest.mock import Mock
+
+import pytest
 
 from whatsapp_automation.scheduler import wait_until
 
@@ -22,3 +24,11 @@ def test_wait_until_sleeps_until_target():
 
     assert sleep.call_args_list[0].args == (1.0,)
     assert sleep.call_args_list[1].args == (1.0,)
+
+
+def test_wait_until_rejects_mixed_timezone_awareness():
+    target = datetime(2026, 10, 1, 10, tzinfo=UTC)
+    clock = Mock(return_value=datetime(2026, 10, 1, 10))
+
+    with pytest.raises(ValueError, match="timezone-aware"):
+        wait_until(target, now_fn=clock)
