@@ -91,12 +91,17 @@ def main() -> int:
         WhatsAppSender(args.profile).send_batch(messages, delay=args.delay)
     except KeyboardInterrupt:
         logging.warning("Message batch interrupted by user")
-        print("Message batch interrupted. Check WhatsApp before retrying; a send may have completed.", file=sys.stderr)
+        print(
+            "Message batch interrupted. Check WhatsApp before retrying; "
+            "a send may have completed.",
+            file=sys.stderr,
+        )
         return 130
     except Exception as exc:
         logging.exception("Message batch failed")
         print(
-            f"Message batch failed: {exc}. Check WhatsApp before retrying because send status may be uncertain.",
+            f"Message batch failed: {exc}. Check WhatsApp before retrying because "
+            "send status may be uncertain.",
             file=sys.stderr,
         )
         return 1
