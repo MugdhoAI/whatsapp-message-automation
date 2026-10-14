@@ -23,13 +23,14 @@ class FakeLocator:
 class FakePage:
     def __init__(self):
         self.urls = []
+        self.selectors = []
         self.composer = FakeLocator()
 
     def goto(self, url, **kwargs):
         self.urls.append((url, kwargs))
 
     def locator(self, selector):
-        assert selector == 'div[contenteditable="true"]'
+        self.selectors.append(selector)
         return FakeLocatorChain(self.composer)
 
     def wait_for_timeout(self, value):
@@ -41,7 +42,7 @@ class FakeLocatorChain:
         self.last = locator
 
 
-def test_send_one_opens_contact_and_sends_message():
+def test_send_one_opens_contact_and_uses_chat_composer():
     page = FakePage()
     message = Message("+8801700000000", "Hello")
 
@@ -53,6 +54,7 @@ def test_send_one_opens_contact_and_sends_message():
             {"wait_until": "domcontentloaded"},
         )
     ]
+    assert page.selectors == ['footer div[contenteditable="true"]']
     assert page.composer.wait_calls == [{"state": "visible", "timeout": 60_000}]
     assert page.composer.filled == "Hello"
     assert page.composer.pressed == "Enter"
