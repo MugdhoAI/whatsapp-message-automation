@@ -4,7 +4,7 @@ from pathlib import Path
 
 from .models import Message
 
-PHONE_PATTERN = re.compile(r"^\\+[1-9]\\d{7,14}$")
+PHONE_PATTERN = re.compile(r"^\+[1-9]\d{7,14}$")
 
 
 def load_messages(path: Path) -> list[Message]:
