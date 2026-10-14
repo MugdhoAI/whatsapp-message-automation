@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from datetime import datetime
 from time import sleep
-from typing import Callable
 
 Clock = Callable[[], datetime]
 Sleeper = Callable[[float], None]
