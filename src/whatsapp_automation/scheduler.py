@@ -12,7 +12,12 @@ def wait_until(
     now_fn: Clock = datetime.now,
 ) -> None:
     while True:
-        remaining = (target - now_fn()).total_seconds()
+        now = now_fn()
+        if (target.tzinfo is None) != (now.tzinfo is None):
+            raise ValueError(
+                "Scheduled time and current time must both be timezone-aware or both be local."
+            )
+        remaining = (target - now).total_seconds()
         if remaining <= 0:
             return
         sleep_fn(min(remaining, 1.0))
