@@ -52,7 +52,7 @@ def test_missing_file_has_actionable_error(tmp_path):
 
 def test_invalid_utf8_has_actionable_error(tmp_path):
     path = tmp_path / "messages.json"
-    path.write_bytes(b"\\xff")
+    path.write_bytes(bytes([0xFF]))
 
     with pytest.raises(ValueError, match="valid UTF-8"):
         load_messages(path)
