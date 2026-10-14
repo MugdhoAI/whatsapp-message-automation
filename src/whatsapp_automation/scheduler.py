@@ -9,10 +9,10 @@ Sleeper = Callable[[float], None]
 def wait_until(
     target: datetime,
     sleep_fn: Sleeper = sleep,
-    now_fn: Clock = datetime.now,
+    now_fn: Clock | None = None,
 ) -> None:
     while True:
-        now = now_fn()
+        now = now_fn() if now_fn is not None else datetime.now(target.tzinfo)
         if (target.tzinfo is None) != (now.tzinfo is None):
             raise ValueError(
                 "Scheduled time and current time must both be timezone-aware or both be local."
