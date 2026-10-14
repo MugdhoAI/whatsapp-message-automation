@@ -4,7 +4,7 @@ from pathlib import Path
 
 from .models import Message
 
-PHONE_PATTERN = re.compile(r"^\+[1-9]\d{7,14}$")
+PHONE_PATTERN = re.compile(r"^\\+[1-9]\\d{7,14}$")
 
 
 def load_messages(path: Path) -> list[Message]:
@@ -14,6 +14,10 @@ def load_messages(path: Path) -> list[Message]:
         raise ValueError(f"Message file not found: {path}") from exc
     except json.JSONDecodeError as exc:
         raise ValueError(f"Invalid JSON in {path}: {exc.msg}") from exc
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"Message file is not valid UTF-8: {path}") from exc
+    except OSError as exc:
+        raise ValueError(f"Cannot read message file {path}: {exc.strerror}") from exc
 
     if not isinstance(raw, list):
         raise ValueError("Message file must contain a JSON array.")
