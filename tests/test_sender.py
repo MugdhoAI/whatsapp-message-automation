@@ -8,9 +8,10 @@ class FakeLocator:
     def __init__(self):
         self.filled = None
         self.pressed = None
+        self.wait_calls = []
 
     def wait_for(self, **kwargs):
-        return None
+        self.wait_calls.append(kwargs)
 
     def fill(self, value):
         self.filled = value
@@ -25,7 +26,7 @@ class FakePage:
         self.composer = FakeLocator()
 
     def goto(self, url, **kwargs):
-        self.urls.append(url)
+        self.urls.append((url, kwargs))
 
     def locator(self, selector):
         assert selector == 'div[contenteditable="true"]'
@@ -37,10 +38,7 @@ class FakePage:
 
 class FakeLocatorChain:
     def __init__(self, locator):
-        self.locator = locator
-
-    def last(self):
-        return self.locator
+        self.last = locator
 
 
 def test_send_one_opens_contact_and_sends_message():
@@ -49,6 +47,12 @@ def test_send_one_opens_contact_and_sends_message():
 
     WhatsAppSender(Path("data/profile"))._send_one(page, message)
 
-    assert page.urls[0].endswith("/send?phone=8801700000000")
+    assert page.urls == [
+        (
+            "https://web.whatsapp.com/send?phone=8801700000000",
+            {"wait_until": "domcontentloaded"},
+        )
+    ]
+    assert page.composer.wait_calls == [{"state": "visible", "timeout": 60_000}]
     assert page.composer.filled == "Hello"
     assert page.composer.pressed == "Enter"
