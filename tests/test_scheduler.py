@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest.mock import Mock
 
 import pytest
@@ -27,7 +27,7 @@ def test_wait_until_sleeps_until_target():
 
 
 def test_wait_until_rejects_mixed_timezone_awareness():
-    target = datetime(2026, 10, 1, 10, tzinfo=timezone.utc)
+    target = datetime(2026, 10, 1, 10, tzinfo=UTC)
     clock = Mock(return_value=datetime(2026, 10, 1, 10))
 
     with pytest.raises(ValueError, match="timezone-aware"):
