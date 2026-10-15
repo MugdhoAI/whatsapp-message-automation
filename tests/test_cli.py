@@ -90,3 +90,31 @@ def test_declined_scheduled_send_does_not_wait_or_send(
 
     wait.assert_not_called()
     sender.send_batch.assert_not_called()
+
+
+def test_interrupting_scheduled_wait_does_not_send(
+    monkeypatch, capsys, tmp_path, valid_messages
+):
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "whatsapp-automation",
+            "--file",
+            str(tmp_path / "messages.json"),
+            "--send",
+            "--yes",
+            "--at",
+            "2026-10-16T10:00:00",
+        ],
+    )
+    monkeypatch.setattr(cli, "load_messages", lambda _path: valid_messages)
+    monkeypatch.setattr(
+        cli, "wait_until", Mock(side_effect=KeyboardInterrupt)
+    )
+    sender = Mock()
+    monkeypatch.setattr(cli, "WhatsAppSender", lambda _profile: sender)
+
+    assert cli.main() == 130
+
+    sender.send_batch.assert_not_called()
+    assert "Scheduled send cancelled before sending." in capsys.readouterr().err
