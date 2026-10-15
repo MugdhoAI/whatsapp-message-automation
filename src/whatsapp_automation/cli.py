@@ -68,22 +68,24 @@ def main() -> int:
         print("Dry run only. No message was sent.")
         return 0
 
+    # Confirm before waiting so a scheduled invocation does not block for input
+    # at the target time, when the user may no longer be present.
+    if not args.yes:
+        try:
+            answer = input("Send these messages through WhatsApp Web? [y/N] ")
+        except (EOFError, KeyboardInterrupt):
+            print("\\nSend cancelled.", file=sys.stderr)
+            return 130
+        if answer.strip().lower() != "y":
+            print("Send cancelled.")
+            return 0
+
     if args.at is not None:
         print(f"Waiting until {args.at.isoformat()}...")
         try:
             wait_until(args.at)
         except ValueError as exc:
             parser.error(str(exc))
-
-    if not args.yes:
-        try:
-            answer = input("Send these messages through WhatsApp Web? [y/N] ")
-        except (EOFError, KeyboardInterrupt):
-            print("\nSend cancelled.", file=sys.stderr)
-            return 130
-        if answer.strip().lower() != "y":
-            print("Send cancelled.")
-            return 0
 
     logging.info("Starting send of %d message(s)", len(messages))
 
