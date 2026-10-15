@@ -74,10 +74,10 @@ def main() -> int:
         try:
             answer = input("Send these messages through WhatsApp Web? [y/N] ")
         except (EOFError, KeyboardInterrupt):
-            print("\\nSend cancelled.", file=sys.stderr)
+            print("\nSend cancelled.", file=sys.stderr)
             return 130
         if answer.strip().lower() != "y":
-            print("Send cancelled.")
+            print("\nSend cancelled.", file=sys.stderr)
             return 0
 
     if args.at is not None:
