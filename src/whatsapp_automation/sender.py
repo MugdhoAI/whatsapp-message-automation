@@ -1,8 +1,12 @@
+import math
+import re
 from pathlib import Path
 from time import sleep
 from typing import Any
 
 from .models import Message
+
+_PHONE_PATTERN = re.compile(r"^\\+[1-9]\\d{7,14}$")
 
 
 class WhatsAppSender:
@@ -11,6 +15,16 @@ class WhatsAppSender:
         self.headless = headless
 
     def send_batch(self, messages: list[Message], delay: float = 3.0) -> None:
+        if not messages:
+            raise ValueError("Message batch must not be empty.")
+        if not math.isfinite(delay) or delay < 0:
+            raise ValueError("Delay must be a finite, non-negative number.")
+        for index, message in enumerate(messages, start=1):
+            if not _PHONE_PATTERN.fullmatch(message.phone):
+                raise ValueError(f"Message {index} has an invalid international phone number.")
+            if not message.text.strip():
+                raise ValueError(f"Message {index} must not be empty.")
+
         from playwright.sync_api import sync_playwright
 
         self.profile_dir.mkdir(parents=True, exist_ok=True)
@@ -26,7 +40,14 @@ class WhatsAppSender:
                 page.wait_for_selector('div[contenteditable="true"]', timeout=120_000)
 
                 for index, message in enumerate(messages):
-                    self._send_one(page, message)
+                    try:
+                        self._send_one(page, message)
+                    except Exception as exc:
+                        raise RuntimeError(
+                            f"Failed while processing message {index + 1} of {len(messages)}. "
+                            "The current message may already have been submitted; check WhatsApp "
+                            "before retrying."
+                        ) from exc
                     if index < len(messages) - 1:
                         sleep(delay)
             finally:
