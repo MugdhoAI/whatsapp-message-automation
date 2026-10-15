@@ -83,3 +83,34 @@ def test_send_batch_rejects_empty_batch_before_browser_launch(tmp_path):
 def test_send_batch_rejects_invalid_message_before_browser_launch(tmp_path, message):
     with pytest.raises(ValueError):
         WhatsAppSender(tmp_path / "profile").send_batch([message])
+
+
+@pytest.mark.parametrize(
+    "phone",
+    [
+        "+8801700000000",
+        "+12025550123",
+        "+447911123456",
+    ],
+)
+def test_sender_phone_pattern_accepts_international_numbers(phone):
+    from whatsapp_automation.sender import _PHONE_PATTERN
+
+    assert _PHONE_PATTERN.fullmatch(phone)
+
+
+@pytest.mark.parametrize(
+    "phone",
+    [
+        "01700000000",
+        "++8801700000000",
+        "+0123456789",
+        "+1234567",
+        "+1234567890123456",
+        "+880 1700000000",
+    ],
+)
+def test_sender_phone_pattern_rejects_invalid_numbers(phone):
+    from whatsapp_automation.sender import _PHONE_PATTERN
+
+    assert _PHONE_PATTERN.fullmatch(phone) is None

@@ -6,7 +6,7 @@ from typing import Any
 
 from .models import Message
 
-_PHONE_PATTERN = re.compile(r"^\\+[1-9]\\d{7,14}$")
+_PHONE_PATTERN = re.compile(r"^\+[1-9]\d{7,14}$")
 
 
 class WhatsAppSender:

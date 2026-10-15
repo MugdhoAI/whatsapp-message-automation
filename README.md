@@ -137,6 +137,7 @@ whatsapp-message-automation/
 │       ├── sender.py
 │       └── validation.py
 ├── tests/
+│   ├── test_cli.py
 │   ├── test_scheduler.py
 │   ├── test_validation.py
 │   └── test_sender.py
