@@ -112,7 +112,7 @@ Use an ISO 8601 local date and time:
 python -m whatsapp_automation --file messages.json --send --at "2026-10-16T10:30:00"
 ```
 
-The program asks for confirmation before waiting, unless `--yes` is supplied. It then waits until the requested time and starts the send operation. A date and time without a timezone is interpreted as local time. If you include a timezone offset, the scheduler compares it as an aware datetime. Keep the terminal session and computer running while waiting.
+The program asks for confirmation before waiting, unless `--yes` is supplied. It then waits until the requested time and starts the send operation. Press Ctrl+C during the wait to cancel before sending. A date and time without a timezone is interpreted as local time. If you include a timezone offset, the scheduler compares it as an aware datetime. Keep the terminal session and computer running while waiting.
 
 ## Delay between messages
 

@@ -84,6 +84,9 @@ def main() -> int:
         print(f"Waiting until {args.at.isoformat()}...")
         try:
             wait_until(args.at)
+        except KeyboardInterrupt:
+            print("\nScheduled send cancelled before sending.", file=sys.stderr)
+            return 130
         except ValueError as exc:
             parser.error(str(exc))
 
