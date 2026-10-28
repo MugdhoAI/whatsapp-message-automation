@@ -5,108 +5,130 @@
 
 ![Illustration of a scheduled WhatsApp reminder workflow](assets/whatsapp-automation-hero.svg)
 
-Schedule and send opt-in WhatsApp reminders and notifications from Python through WhatsApp Web.
+A Python command line tool for sending WhatsApp reminders and notifications through WhatsApp Web.
 
-This is a small command line utility for controlled personal and internal workflows. It automates the normal WhatsApp Web interface with Playwright. It does not use private WhatsApp APIs or attempt to bypass authentication, CAPTCHAs, rate limits, or other platform protections.
+It reads a list of recipients and messages from a JSON file, lets you review the batch, and can send it now or wait until a chosen time. It uses Playwright to control the regular WhatsApp Web interface.
 
-## What it does
+Use it for messages people expect to receive, such as personal reminders or small internal notifications. It does not use a private WhatsApp API or try to bypass login, CAPTCHAs, rate limits, or other platform protections.
 
-- Reads recipients and message text from a JSON file.
-- Validates international phone numbers and message content before opening the browser.
-- Supports dry runs so you can review a batch without sending anything.
-- Sends a batch immediately or waits until a specified date and time before starting.
-- Reuses a local browser profile for the normal WhatsApp Web login.
-- Asks for confirmation before sending unless you explicitly pass `--yes`.
-- Supports a configurable delay between messages.
-- Records operational events in a local log.
+## Features
 
-The scheduler handles a single scheduled batch. Recurring reminders, contact-name lookup, message templates, and delivery-receipt verification are not currently supported.
+- Check phone numbers and message text before opening the browser.
+- Preview a batch without sending anything.
+- Send a batch now or schedule it for one date and time.
+- Ask for confirmation before sending, unless you pass `--yes`.
+- Keep the WhatsApp Web login in a local browser profile.
+- Set a delay between messages.
+- Write basic activity details to a local log.
 
-## Quickstart
+It supports one scheduled batch at a time. It does not support recurring reminders, contact name lookup, message templates, or delivery receipt checks.
 
-Requirements: Python 3.11 or newer, a WhatsApp account, a desktop browser environment, and Playwright.
+## Requirements
 
-Create and activate a virtual environment:
+- Python 3.11 or newer
+- A WhatsApp account
+- A desktop environment that can run Chromium
+- Playwright
+
+## Install
+
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-On Windows PowerShell:
+Activate it in Windows PowerShell:
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+.\\.venv\\Scripts\\Activate.ps1
 ```
 
-On macOS or Linux:
+Or on macOS or Linux:
 
 ```bash
 source .venv/bin/activate
 ```
 
-Install the project and Chromium:
+Install the project and browser:
 
 ```bash
 python -m pip install -e ".[dev]"
 playwright install chromium
 ```
 
-Create your message file:
+## Prepare your messages
+
+Copy the example file.
+
+Windows PowerShell:
 
 ```powershell
 Copy-Item messages.example.json messages.json
 ```
 
-On macOS or Linux, use `cp messages.example.json messages.json`. Edit `messages.json` with the intended recipients and message text. Each entry must contain only `phone` and `message`, and the phone number must use international format, such as `+8801700000000`.
+macOS or Linux:
 
-Review the batch without sending:
+```bash
+cp messages.example.json messages.json
+```
+
+Edit `messages.json` and add the intended recipients and message text. Each entry must contain only `phone` and `message`. Use international phone number format, for example `+8801700000000`.
+
+## Preview and send
+
+First, check the batch without sending:
 
 ```bash
 python -m whatsapp_automation --file messages.json --dry-run
 ```
 
-When the preview is correct, start the send operation:
+Read the preview carefully. It displays the phone numbers and message text.
+
+When the preview is correct, run:
 
 ```bash
 python -m whatsapp_automation --file messages.json --send
 ```
 
-The first run opens WhatsApp Web. Scan the QR code normally if you need to sign in. The tool asks for confirmation before sending. Review the preview carefully; it includes phone numbers and message text.
+On the first run, WhatsApp Web opens in Chromium. Scan the QR code if you need to sign in. The tool asks you to confirm before it starts sending.
 
 ## Schedule a batch
 
-Use an ISO 8601 date and time. Replace the example with a future time in your local timezone:
+Pass a date and time in ISO 8601 format. Replace this example with a future time in your local timezone:
 
 ```bash
 python -m whatsapp_automation --file messages.json --send --at "2030-01-01T10:30:00"
 ```
 
-The tool asks for confirmation before waiting, unless `--yes` is supplied. Press Ctrl+C during the wait to cancel before sending. Keep the terminal session and computer running until the scheduled send starts. A date and time without a timezone offset is interpreted as local time.
+The tool asks for confirmation before waiting, unless you pass `--yes`. Press Ctrl+C to cancel while it is waiting. Keep the terminal and computer running until the scheduled time. If you do not include a timezone offset, the time is treated as local time.
 
-## Configure the delay
+## Set the delay
 
-The default delay between messages is three seconds. Set a different finite, non-negative delay with `--delay`:
+The default delay between messages is three seconds. To use a different delay, pass `--delay`:
 
 ```bash
 python -m whatsapp_automation --file messages.json --send --delay 5
 ```
 
-The delay is not a guarantee of delivery and does not bypass WhatsApp limits.
+The delay does not guarantee delivery or bypass WhatsApp limits.
 
-## Responsible use and privacy
+## Use it responsibly
 
-- Send only to people who expect and have agreed to receive the messages.
-- Do not use this project for spam, unsolicited bulk messaging, contact scraping, or attempts to evade WhatsApp protections.
-- Use `--dry-run` first and review the exact batch before sending.
-- Use `--yes` only when you have already reviewed the batch and intentionally want to skip the interactive confirmation.
-- The persistent browser profile in `data/browser-profile` contains authenticated session data. Keep it private and never commit or share it.
-- The dry-run preview displays message text in the terminal. The local activity log can contain operational errors, so review it before sharing logs publicly.
+- Send messages only to people who expect them and have agreed to receive them.
+- Do not use the tool for spam, unsolicited bulk messages, contact scraping, or attempts to evade WhatsApp protections.
+- Use the preview before sending and check the recipient list.
+- Pass `--yes` only when you have already reviewed the batch and want to skip confirmation.
+- The browser profile in `data/browser-profile` stores login session data. Keep it private and never commit or share it.
+- The preview shows message text in the terminal. Review the local log before sharing it, as it may contain operational details.
 
 ## Limitations
 
-This project automates a third-party web interface, not an official WhatsApp API. WhatsApp Web can change and break browser selectors. A successful browser operation does not prove that every message was delivered or read. If a browser or network error occurs during a send, the message status may be uncertain; check WhatsApp before retrying. The tool does not automatically retry uncertain sends.
+This tool controls WhatsApp Web. It is not an official WhatsApp API client, and changes to the website may break the automation.
 
-This is intended for small, controlled workflows. It is not a bulk-messaging platform and is not presented as production-grade messaging infrastructure.
+A completed browser operation does not prove that a message was delivered or read. If an error occurs while sending, the status of that message may be unclear. Check WhatsApp before trying again. The tool does not retry automatically.
+
+This project is intended for small, personal or internal workflows. It is not a bulk messaging service or a replacement for production messaging infrastructure.
 
 ## Development
 
@@ -117,7 +139,7 @@ pytest
 ruff check .
 ```
 
-The sender tests use a fake browser interface. They verify the automation calls without contacting WhatsApp, so they do not prove live website compatibility or message delivery.
+The sender tests use a fake browser, so they do not contact WhatsApp. Passing the tests does not confirm that the current WhatsApp Web interface works or that messages will be delivered.
 
 ## Project structure
 
@@ -137,11 +159,11 @@ tests/
 └── test_validation.py
 ```
 
-Input validation, scheduling, command line behavior, and browser interaction are kept in separate modules so most behavior can be tested without opening a browser.
+The code separates input checks, scheduling, command line behavior, and browser actions. Most of it can be tested without opening a browser.
 
 ## Contributing and security
 
-Contributions should include focused tests and must not expose private message content or browser session data. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and [SECURITY.md](SECURITY.md) for reporting security concerns.
+If you want to contribute, read [CONTRIBUTING.md](CONTRIBUTING.md). For security concerns, see [SECURITY.md](SECURITY.md).
 
 ## License
 
