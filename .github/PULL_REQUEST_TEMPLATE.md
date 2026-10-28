@@ -1,19 +1,19 @@
-## Summary
+## What changed?
 
 Describe the problem and the change.
 
-## Verification
+## Checks
 
-- [ ] Added or updated tests where appropriate.
+- [ ] Added or updated tests where needed.
 - [ ] Ran `pytest`.
 - [ ] Ran `ruff check .`.
-- [ ] Updated documentation when behavior or commands changed.
+- [ ] Updated the docs if commands or behavior changed.
 
-## Safety and privacy
+## Privacy and safety
 
-- [ ] No real phone numbers, private message content, browser profiles, or credentials are included.
-- [ ] Any send-related failure leaves uncertainty explicit and does not trigger an unsafe automatic retry.
+- [ ] No real phone numbers, private messages, browser profiles, or credentials are included.
+- [ ] Send failures do not trigger an unsafe automatic retry.
 
-## Remaining limitations
+## What remains untested?
 
-List behavior that was not tested, including any live WhatsApp behavior.
+Mention anything you did not check, including live WhatsApp behavior.
