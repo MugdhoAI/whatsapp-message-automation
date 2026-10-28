@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">WhatsApp Message Automation</title>
+  <desc id="desc">A Python reminder workflow illustrated with a message bubble, a schedule clock, and a WhatsApp Web chat window.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071c19"/>
+      <stop offset="1" stop-color="#123e31"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#42e58c"/>
+      <stop offset="1" stop-color="#16a765"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17352f"/>
+      <stop offset="1" stop-color="#0b211d"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="500" rx="28" fill="url(#background)"/>
+  <circle cx="1080" cy="70" r="190" fill="#24d878" opacity=".07"/>
+  <circle cx="840" cy="500" r="280" fill="#24d878" opacity=".05"/>
+  <path d="M0 410 C170 350 290 480 450 420 S720 365 860 440 S1080 465 1200 390 V500 H0Z" fill="#071512" opacity=".38"/>
+  <g opacity=".16" stroke="#79e9ad" stroke-width="1">
+    <path d="M600 0V500 M700 0V500 M800 0V500 M900 0V500 M1000 0V500 M1100 0V500"/>
+    <path d="M600 100H1200 M600 200H1200 M600 300H1200 M600 400H1200"/>
+  </g>
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="66" y="66" width="270" height="34" rx="17" fill="#174d3a" stroke="#2a7955"/>
+    <circle cx="85" cy="83" r="5" fill="#42e58c"/>
+    <text x="101" y="88" font-size="13" font-weight="700" letter-spacing="1.4" fill="#b7f6d1">PYTHON · WHATSAPP WEB</text>
+    <text x="64" y="183" font-size="53" font-weight="750" fill="#f4fff8">Messages,</text>
+    <text x="64" y="245" font-size="53" font-weight="750" fill="#42e58c">on schedule.</text>
+    <text x="67" y="292" font-size="19" fill="#c4dcd0">A small CLI for reminders and</text>
+    <text x="67" y="320" font-size="19" fill="#c4dcd0">opt-in notifications.</text>
+    <g transform="translate(66 368)">
+      <rect width="145" height="38" rx="19" fill="#163d30" stroke="#2d7651"/>
+      <path d="M17 18l5 5 10-11" fill="none" stroke="#42e58c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="42" y="24" font-size="12" font-weight="650" letter-spacing=".5" fill="#e4fff0">DRY RUN</text>
+      <rect x="157" width="190" height="38" rx="19" fill="#163d30" stroke="#2d7651"/>
+      <path d="M174 13h13v12h-13z M177 10h7" fill="none" stroke="#42e58c" stroke-width="1.8" stroke-linejoin="round"/>
+      <text x="195" y="24" font-size="12" font-weight="650" letter-spacing=".3" fill="#e4fff0">CONFIRM BEFORE SEND</text>
+    </g>
+  </g>
+  <g filter="url(#shadow)" transform="translate(720 52)">
+    <rect x="46" y="20" width="330" height="402" rx="28" fill="#061512" stroke="#427b62" stroke-width="2"/>
+    <rect x="61" y="36" width="300" height="370" rx="18" fill="url(#phone)"/>
+    <path d="M160 29h102" stroke="#427b62" stroke-width="4" stroke-linecap="round"/>
+    <rect x="61" y="36" width="300" height="60" rx="18" fill="#174b37"/>
+    <rect x="61" y="78" width="300" height="18" fill="#174b37"/>
+    <circle cx="91" cy="66" r="17" fill="url(#green)"/>
+    <path d="M82 67c0-6 4-10 9-10s9 4 9 9c0 2-1 4-2 5l1 5-5-2c-7 1-12-3-12-7z" fill="#083e28"/>
+    <circle cx="87" cy="65" r="1.5" fill="#b9ffd6"/>
+    <circle cx="94" cy="65" r="1.5" fill="#b9ffd6"/>
+    <text x="118" y="64" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#f1fff6">WhatsApp Web</text>
+    <text x="118" y="81" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10" fill="#b9e7cf">Session ready</text>
+    <rect x="81" y="117" width="218" height="58" rx="14" fill="#23463a"/>
+    <text x="97" y="141" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#effff5">Reminder: team meeting</text>
+    <text x="97" y="159" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#effff5">starts at 10:30.</text>
+    <text x="272" y="166" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" fill="#a5c9b6">10:15</text>
+    <rect x="139" y="193" width="200" height="54" rx="14" fill="#1d8755"/>
+    <text x="155" y="216" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">Thanks, reminder</text>
+    <text x="155" y="233" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">received.</text>
+    <text x="312" y="238" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" fill="#c6f4d9">10:16</text>
+    <rect x="81" y="274" width="250" height="44" rx="13" fill="#102d25" stroke="#2c5c47"/>
+    <circle cx="100" cy="296" r="6" fill="#42e58c"/>
+    <path d="M97 296l2 2 4-5" fill="none" stroke="#083e28" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="114" y="300" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#cce9d8">Batch reviewed before sending</text>
+    <rect x="81" y="338" width="250" height="42" rx="21" fill="#173d30" stroke="#2d7651"/>
+    <text x="103" y="364" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" fill="#a9d7bd">Message prepared in Python</text>
+  </g>
+  <g filter="url(#shadow)" transform="translate(980 75)">
+    <circle cx="78" cy="78" r="65" fill="#f1fff7" stroke="#42e58c" stroke-width="5"/>
+    <circle cx="78" cy="78" r="49" fill="#e0f8eb"/>
+    <path d="M78 45v34l23 14" fill="none" stroke="#117b4c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="78" cy="78" r="5" fill="#117b4c"/>
+    <rect x="36" y="143" width="84" height="28" rx="14" fill="#42e58c"/>
+    <text x="78" y="161" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="750" fill="#083b27">SCHEDULED</text>
+  </g>
+</svg>
