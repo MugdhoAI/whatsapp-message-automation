@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible problem with the CLI or browser workflow.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include real phone numbers, message contents, browser profiles, session cookies, or unredacted logs.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem
+      description: Describe what failed.
+      placeholder: The command exits with an error before opening the chat.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the command and a minimal example using fictional data.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and browser
+      placeholder: Windows 11, Chromium installed by Playwright
+    validations:
+      required: true
