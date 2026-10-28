@@ -118,3 +118,34 @@ def test_interrupting_scheduled_wait_does_not_send(
 
     sender.send_batch.assert_not_called()
     assert "Scheduled send cancelled before sending." in capsys.readouterr().err
+
+
+def test_send_failure_log_does_not_include_recipient_phone(
+    monkeypatch, caplog, tmp_path, valid_messages
+):
+    recipient_phone = "8801700000000"
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        "sys.argv",
+        ["whatsapp-automation", "--file", str(tmp_path / "messages.json"), "--send", "--yes"],
+    )
+    monkeypatch.setattr(cli, "load_messages", lambda _path: valid_messages)
+
+    def fail_send(*_args, **_kwargs):
+        try:
+            raise ValueError(
+                f"Navigation failed at https://web.whatsapp.com/send?phone={recipient_phone}"
+            )
+        except ValueError as cause:
+            raise RuntimeError(
+                "Failed while processing message 1 of 1. Check WhatsApp before retrying."
+            ) from cause
+
+    sender = Mock()
+    sender.send_batch.side_effect = fail_send
+    monkeypatch.setattr(cli, "WhatsAppSender", lambda _profile: sender)
+
+    assert cli.main() == 1
+
+    assert recipient_phone not in caplog.text
+    assert "Message batch failed (RuntimeError)" in caplog.text
