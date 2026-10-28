@@ -16,7 +16,7 @@ class WhatsAppSender:
 
     def send_batch(self, messages: list[Message], delay: float = 3.0) -> None:
         if not messages:
-            raise ValueError("Message batch must not be empty.")
+            raise ValueError("The message list must not be empty.")
         if not math.isfinite(delay) or delay < 0:
             raise ValueError("Delay must be a finite, non-negative number.")
         for index, message in enumerate(messages, start=1):
