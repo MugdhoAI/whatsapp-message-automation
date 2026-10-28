@@ -139,6 +139,10 @@ tests/
 
 Input validation, scheduling, command line behavior, and browser interaction are kept in separate modules so most behavior can be tested without opening a browser.
 
+## Contributing and security
+
+Contributions should include focused tests and must not expose private message content or browser session data. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and [SECURITY.md](SECURITY.md) for reporting security concerns.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
