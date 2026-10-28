@@ -103,7 +103,12 @@ def main() -> int:
         )
         return 130
     except Exception as exc:
-        logging.exception("Message batch failed")
+        # Avoid logging a traceback: chained Playwright exceptions can contain
+        # recipient-specific WhatsApp URLs and expose phone numbers in local logs.
+        logging.error(
+            "Message batch failed (%s); send status may be uncertain",
+            type(exc).__name__,
+        )
         print(
             f"Message batch failed: {exc}. Check WhatsApp before retrying because "
             "send status may be uncertain.",
