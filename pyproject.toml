@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "whatsapp-message-automation"
 version = "0.1.0"
-description = "A small command line tool for preparing and sending scheduled WhatsApp messages through WhatsApp Web."
+description = "A Python tool for sending WhatsApp messages through WhatsApp Web, now or at a scheduled time."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
