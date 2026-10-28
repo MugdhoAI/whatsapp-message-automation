@@ -1,25 +1,25 @@
 # Roadmap
 
-This is a small command line utility for controlled, opt-in WhatsApp reminders and notifications. The list below describes possible improvements, not committed release dates.
+This file lists ideas, not promised features or release dates.
 
-## Current scope
+## What the tool does today
 
-- Validate a JSON batch before opening WhatsApp Web.
-- Preview messages without sending.
-- Send immediately or schedule one batch for a specific date and time.
-- Require confirmation by default.
-- Keep the authenticated browser profile local.
-- Avoid automatic retries when a send result is uncertain.
+- Checks a JSON batch before opening WhatsApp Web.
+- Shows a preview without sending messages.
+- Sends a batch immediately or waits for one scheduled time.
+- Asks for confirmation before sending by default.
+- Keeps the signed in browser profile on the local machine.
+- Does not retry a message when its send status is unclear.
 
-## Possible future work
+## Ideas to explore
 
-- Improve per-message status reporting without implying delivery when it cannot be verified.
-- Document a manual smoke-test procedure for checking compatibility with current WhatsApp Web behavior.
-- Evaluate recurring schedules only after cancellation, duplicate-send behavior, and consent safeguards can be specified and tested.
+- Show clearer status for each message without suggesting that delivery was verified.
+- Document a manual check for compatibility with the current WhatsApp Web interface.
+- Consider recurring reminders only after cancellation, duplicate sends, and recipient consent can be handled safely.
 
-## Out of scope
+## Not planned
 
-- Unsolicited bulk messaging or spam.
+- Spam or unsolicited bulk messaging.
 - Contact scraping.
-- Bypassing authentication or WhatsApp platform protections.
-- Claiming delivery or read receipts without independent verification.
+- Bypassing sign in or WhatsApp protections.
+- Claiming delivery or read receipts without evidence.
