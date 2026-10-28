@@ -60,8 +60,8 @@
     <text x="97" y="159" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#effff5">starts at 10:30.</text>
     <text x="272" y="166" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" fill="#a5c9b6">10:15</text>
     <rect x="139" y="193" width="200" height="54" rx="14" fill="#1d8755"/>
-    <text x="155" y="216" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">Thanks, reminder</text>
-    <text x="155" y="233" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">received.</text>
+    <text x="155" y="216" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">Reminder ready</text>
+    <text x="155" y="233" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" fill="#f3fff8">to send.</text>
     <text x="312" y="238" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="9" fill="#c6f4d9">10:16</text>
     <rect x="81" y="274" width="250" height="44" rx="13" fill="#102d25" stroke="#2c5c47"/>
     <circle cx="100" cy="296" r="6" fill="#42e58c"/>
