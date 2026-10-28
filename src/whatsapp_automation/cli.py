@@ -74,10 +74,10 @@ def main() -> int:
         try:
             answer = input("Send these messages through WhatsApp Web? [y/N] ")
         except (EOFError, KeyboardInterrupt):
-            print("\\nSend cancelled.", file=sys.stderr)
+            print("\nSend cancelled.", file=sys.stderr)
             return 130
         if answer.strip().lower() != "y":
-            print("\\nSend cancelled.", file=sys.stderr)
+            print("\nSend cancelled.", file=sys.stderr)
             return 0
 
     if args.at is not None:
@@ -85,7 +85,7 @@ def main() -> int:
         try:
             wait_until(args.at)
         except KeyboardInterrupt:
-            print("\\nScheduled send cancelled before sending.", file=sys.stderr)
+            print("\nScheduled send cancelled before sending.", file=sys.stderr)
             return 130
         except ValueError as exc:
             parser.error(str(exc))
