@@ -118,7 +118,7 @@ def main() -> int:
 
     logging.info("Browser steps completed; message delivery was not verified")
     print(
-         "Finished the browser steps for this batch. This does not confirm that "
+        "Finished the browser steps for this batch. This does not confirm that "
         "recipients received or read every message."
     )
     return 0
