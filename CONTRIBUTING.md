@@ -1,41 +1,40 @@
 # Contributing
 
-Contributions should improve correctness, reliability, safety, or usability without expanding the project beyond its intended scope.
+Thanks for considering a contribution. Please keep changes focused on making the tool easier to use, safer, or more reliable.
 
-## Development setup
+## Set up the project
 
 Use Python 3.11 or newer:
 
 ```bash
 python -m venv .venv
-```
-
-Activate the environment, then install the development dependencies:
-
-```bash
 python -m pip install -e ".[dev]"
 playwright install chromium
 ```
 
-## Checks
+Activate the virtual environment before installing or running the project.
 
-Run the test suite and linter before opening a pull request:
+## Run the checks
+
+Before opening a pull request, run:
 
 ```bash
 pytest
 ruff check .
 ```
 
-The automated sender tests use a fake browser interface. They do not contact WhatsApp and do not prove live delivery. Do not add tests that send real messages to people or require an authenticated WhatsApp session in CI.
+The sender tests use a fake browser. They do not contact WhatsApp. Do not add tests that send real messages or require a signed in WhatsApp session in CI.
 
-## Pull requests
+## Open a pull request
 
-- Keep each change focused and explain the behavior it changes.
-- Add regression tests for bug fixes where practical.
-- Update the README when commands, behavior, or limitations change.
-- Report the checks you actually ran and identify anything that remains unverified.
-- Do not claim delivery verification unless the implementation independently establishes it.
+- Keep each change focused and explain what it fixes or adds.
+- Add a regression test for a bug fix when practical.
+- Update the README if commands, behavior, or limitations change.
+- Say which checks you ran and what remains untested.
+- Do not claim that a message was delivered unless the code can verify it.
 
-## Privacy and responsible use
+## Protect private information
 
-Never commit `messages.json`, `data/browser-profile`, logs containing private information, real phone numbers, or personal message content. Use fictional test data. Do not contribute features intended for spam, unsolicited bulk messaging, contact scraping, or bypassing WhatsApp protections.
+Do not commit `messages.json`, browser profile data, logs containing private details, real phone numbers, or personal message content. Use fictional data in tests.
+
+Do not add features for spam, unsolicited bulk messages, contact scraping, or bypassing WhatsApp protections.
