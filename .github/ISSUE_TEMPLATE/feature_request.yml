@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest a focused improvement to the personal automation workflow.
+description: Suggest an improvement to the tool.
 title: "feature: "
 labels:
   - enhancement
@@ -7,25 +7,25 @@ body:
   - type: markdown
     attributes:
       value: |
-        Requests should support controlled, opt-in communication and must not depend on spam, contact scraping, or bypassing WhatsApp protections.
+        Suggestions should support messages that recipients expect. Do not propose spam, contact scraping, or ways to bypass WhatsApp protections.
   - type: textarea
     id: problem
     attributes:
-      label: Problem to solve
-      description: Explain the real workflow that is difficult today.
+      label: What problem are you trying to solve?
+      description: Describe the task that is difficult today.
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed behavior
-      description: Describe the smallest useful change.
+      label: What would you change?
+      description: Describe the smallest useful improvement.
     validations:
       required: true
   - type: textarea
     id: safety
     attributes:
-      label: Safety and privacy considerations
-      description: Explain what the feature means for confirmation, duplicate sends, message data, and recipient consent.
+      label: Privacy and safety
+      description: How could this affect confirmation, duplicate sends, message data, or recipient consent?
     validations:
       required: true

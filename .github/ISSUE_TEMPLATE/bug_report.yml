@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a reproducible problem with the CLI or browser workflow.
+description: Report a problem you can reproduce.
 title: "bug: "
 labels:
   - bug
@@ -7,26 +7,26 @@ body:
   - type: markdown
     attributes:
       value: |
-        Do not include real phone numbers, message contents, browser profiles, session cookies, or unredacted logs.
+        Do not include real phone numbers, message text, browser profiles, session cookies, or logs that contain private information.
   - type: textarea
     id: summary
     attributes:
-      label: Problem
-      description: Describe what failed.
-      placeholder: The command exits with an error before opening the chat.
+      label: What went wrong?
+      description: Describe the problem.
+      placeholder: The command exits before opening the chat.
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
-      label: Steps to reproduce
-      description: Include the command and a minimal example using fictional data.
+      label: How can we reproduce it?
+      description: Include the command and a small example with fictional data.
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Expected and actual behavior
+      label: What did you expect, and what happened?
     validations:
       required: true
   - type: input

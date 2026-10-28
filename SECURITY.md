@@ -1,15 +1,15 @@
-# Security Policy
+# Security
 
-## Reporting a concern
+## Report a concern
 
-Do not publish exploitable details, authenticated browser data, phone numbers, or private message content in a public issue.
+Do not post exploitable details, phone numbers, private messages, browser data, or session cookies in a public issue.
 
-If private vulnerability reporting is enabled for this repository, use GitHub's **Report a vulnerability** option under the repository's Security tab. Otherwise, contact the maintainer through the [MugdhoAI GitHub profile](https://github.com/MugdhoAI) and request a private reporting channel before sharing sensitive details.
+If private vulnerability reporting is available, use **Report a vulnerability** on the repository's Security tab. If it is not available, contact the maintainer through the [MugdhoAI GitHub profile](https://github.com/MugdhoAI) and ask for a private way to share the details.
 
-Do not attach the browser profile, session cookies, message files, or unredacted logs or screenshots.
+Do not attach browser profiles, cookies, message files, or logs and screenshots that have not been checked for private information.
 
-## Scope and limitations
+## Scope
 
-This project automates WhatsApp Web through Playwright. Its browser selectors can break when the website changes, and a completed browser operation does not prove message delivery. It is not an official WhatsApp API client or a substitute for a security review of an application that handles sensitive communications.
+This project controls WhatsApp Web through Playwright. Changes to the website may break it, and completing browser actions does not prove that a message was delivered or read. It is not an official WhatsApp API client.
 
-Reports are assessed against the current default branch. No response-time guarantee is provided.
+Reports are reviewed against the default branch. A response time is not guaranteed.

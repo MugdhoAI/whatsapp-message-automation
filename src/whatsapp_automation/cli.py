@@ -34,7 +34,7 @@ def _parse_datetime(value: str) -> datetime:
         return datetime.fromisoformat(value)
     except ValueError as exc:
         raise argparse.ArgumentTypeError(
-            "Use ISO 8601 format such as 2026-10-01T10:30:00."
+            "Use ISO 8601 format such as 2030-01-01T10:30:00."
         ) from exc
 
 
@@ -55,7 +55,7 @@ def main() -> int:
     )
 
     if not math.isfinite(args.delay) or args.delay < 0:
-        parser.error("--delay must be a finite, non negative number.")
+        parser.error("--delay must be a finite number greater than or equal to zero.")
 
     try:
         messages = load_messages(args.file)
@@ -116,9 +116,9 @@ def main() -> int:
         )
         return 1
 
-    logging.info("Message batch automation completed; delivery was not independently verified")
+    logging.info("Browser steps completed; message delivery was not verified")
     print(
-        "Message batch automation completed. This confirms the browser steps finished, "
-        "not that recipients received or read every message."
+        "Finished the browser steps for this batch. This does not confirm that "
+        "recipients received or read every message."
     )
     return 0

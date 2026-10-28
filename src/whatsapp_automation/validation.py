@@ -44,7 +44,7 @@ def load_messages(path: Path) -> list[Message]:
             )
 
         if not isinstance(text, str) or not text.strip():
-            raise ValueError(f"Entry {index} must contain a non empty message.")
+            raise ValueError(f"Entry {index} must not be empty.")
 
         messages.append(Message(phone=phone, text=text))
 
